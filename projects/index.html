@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habit Challenge – Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Top navigation -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a class="brand" href="#">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">
+          <strong>Habit</strong><br />
+          Challenge
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <a class="nav__link is-active" href="#"><span class="nav__icon">▦</span>Dashboard</a>
+        <a class="nav__link" href="#"><span class="nav__icon">✓</span>Habits</a>
+        <a class="nav__link" href="#"><span class="nav__icon">🗒</span>Tasks</a>
+        <a class="nav__link" href="#"><span class="nav__icon">🏁</span>Challenges</a>
+        <a class="nav__link" href="#"><span class="nav__icon">👥</span>Leaderboard</a>
+        <a class="nav__link" href="#"><span class="nav__icon">🗓</span>Calendar</a>
+        <a class="nav__link" href="#"><span class="nav__icon">👤</span>Profile</a>
+        <a class="nav__link" href="#"><span class="nav__icon">⚙</span>Settings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="container">
+      <header class="page__head">
+        <h1 class="page__title">Dashboard</h1>
+        <p class="page__subtitle">Welcome back! Here's your overview.</p>
+      </header>
+
+      <!-- Stat cards -->
+      <section class="stats" aria-label="Overview statistics">
+        <article class="stat">
+          <div class="stat__meta">
+            <p class="stat__label">Current Streak</p>
+            <p class="stat__value">12 <span>days</span></p>
+          </div>
+          <div class="stat__icon stat__icon--orange" aria-hidden="true">🔥</div>
+        </article>
+
+        <article class="stat">
+          <div class="stat__meta">
+            <p class="stat__label">Rating</p>
+            <p class="stat__value">2,450</p>
+          </div>
+          <div class="stat__icon stat__icon--yellow" aria-hidden="true">★</div>
+        </article>
+
+        <article class="stat">
+          <div class="stat__meta">
+            <p class="stat__label">Active Habits</p>
+            <p class="stat__value">8</p>
+          </div>
+          <div class="stat__icon stat__icon--blue" aria-hidden="true">☑</div>
+        </article>
+
+        <button class="stat stat--clickable" id="challengeBtn" style="border:none; background:none; cursor:pointer; text-align:left;">
+          <div class="stat__meta">
+            <p class="stat__label">Challenges</p>
+            <p class="stat__value">3</p>
+          </div>
+          <div class="stat__icon stat__icon--purple" aria-hidden="true">🏆</div>
+        </button>
+      </section>
+
+      <!-- Two panels -->
+      <section class="grid-2" aria-label="Dashboard lists">
+        <article class="panel">
+          <header class="panel__head">
+            <h2 class="panel__title">Active Habits</h2>
+            <a class="panel__link" href="#">View all</a>
+          </header>
+
+          <div class="list">
+            <label class="item">
+              <input class="cb" type="checkbox" checked />
+              <span class="item__text">
+                <span class="item__title is-done">Morning Meditation</span>
+                <span class="item__sub"><span class="mini-icon">🔥</span> 12 day streak</span>
+              </span>
+            </label>
+
+            <label class="item">
+              <input class="cb" type="checkbox" checked />
+              <span class="item__text">
+                <span class="item__title is-done">Exercise 30 min</span>
+                <span class="item__sub"><span class="mini-icon">🔥</span> 8 day streak</span>
+              </span>
+            </label>
+
+            <label class="item">
+              <input class="cb" type="checkbox" />
+              <span class="item__text">
+                <span class="item__title">Read 20 pages</span>
+                <span class="item__sub">&nbsp;</span>
+              </span>
+            </label>
+          </div>
+        </article>
+
+        <article class="panel">
+          <header class="panel__head">
+            <h2 class="panel__title">Today's Tasks</h2>
+            <a class="panel__link" href="#">View all</a>
+          </header>
+
+          <div class="list">
+            <label class="item">
+              <input class="cb" type="checkbox" checked />
+              <span class="item__text">
+                <span class="item__title is-done">Complete morning workout</span>
+                <span class="item__sub">7:00 AM</span>
+              </span>
+            </label>
+
+            <label class="item">
+              <input class="cb" type="checkbox" checked />
+              <span class="item__text">
+                <span class="item__title is-done">Review project documentation</span>
+                <span class="item__sub">10:00 AM</span>
+              </span>
+            </label>
+
+            <label class="item">
+              <input class="cb" type="checkbox" />
+              <span class="item__text">
+                <span class="item__title">Team meeting</span>
+                <span class="item__sub">&nbsp;</span>
+              </span>
+            </label>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- Help bubble (bottom-right) -->
+    <button class="help" aria-label="Help">?</button>
+  </main>
+
+  <!-- Challenge Modal -->
+  <div class="modal" id="challengeModal">
+    <div class="modal__overlay" id="modalOverlay"></div>
+    <div class="modal__content">
+      <button class="modal__close" id="closeModal">&times;</button>
+      <h2 class="modal__title">Welcome</h2>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const challengeBtn = document.getElementById('challengeBtn');
+      const challengeModal = document.getElementById('challengeModal');
+      const closeModal = document.getElementById('closeModal');
+      const modalOverlay = document.getElementById('modalOverlay');
+
+      if (challengeBtn) {
+        challengeBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          challengeModal.classList.add('is-open');
+        });
+      }
+
+      if (closeModal) {
+        closeModal.addEventListener('click', function() {
+          challengeModal.classList.remove('is-open');
+        });
+      }
+
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', function() {
+          challengeModal.classList.remove('is-open');
+        });
+      }
+    });
+  </script>
+</body>
+</html>
