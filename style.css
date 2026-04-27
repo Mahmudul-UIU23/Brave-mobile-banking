@@ -1,3 +1,14 @@
 h1{
     background-color: aqua;
 }
+/* center the h1 element */
+
+h1{
+    text-align: center;
+}
+ front size ta change koro and color ta red koro
+h1{
+    font-size: 50px;
+    color: red;
+    /* bo */
+}
